@@ -1,0 +1,3 @@
+linters:
+    robocop:
+      display_cop_names: true;
