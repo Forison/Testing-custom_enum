@@ -2,27 +2,29 @@ module Enumerable
   def my_each
     if self.class == Array
       self.size.times{ |i| yield self[i] }
-    end
-    if self.class == Hash
+    elsif self.class == Hash
       self.size.times{ |i| yield self.keys[i] ,self.values[i] }
     end
+    self
   end
 
   def my_each_with_index
-    self.size.times{|a| yield self[a] , a}
+    0.upto( self.size - 1 ){ | a | yield self[a] , a}
+    self
   end
 
 
 def my_select
     if self.class == Array
       temp = []
-      my_each do |x|
+      self.my_each do |x|
         temp.push(x) if yield(x)
       end
       temp
+    
     elsif self.class == Hash
       temp = {}
-      my_each do |key, value|
+      self.my_each do |key, value|
         temp[key] = value if yield(key, value)
       end
       temp
@@ -37,25 +39,31 @@ def my_select
 
   else 
     self.each do |obj| 
-    return false if obj ==false || obj==nil
-      return true
+    false if obj ==false || obj==nil
+      true
     end
     self.size==0?true:true
     end
-  return true if self.size==0
+   true if self.size==0
   true
 end
 
-def my_any?(*arg)
-  if block_given?
-    self.my_each { |a| return true if yield(a) } 
-  else
-    self.my_each { |a| return true if a }
-  end
-  if arg.empty?
-   return false if self.size == 0  
-  end
- false
+def my_any?(arg = nil)
+    count = 0
+    return false  if self.size== 0 
+    if arg.nil? && self.size > 0
+     self.my_each do | a | 
+          return true if a == true
+     end
+    elsif !arg.nil? && self.size > 0
+       self.my_each do | a | 
+          return true if a.is_a?(arg) 
+       end
+    end
+
+    self.my_each { |a| return true if yield(a) } if block_given?
+
+    false
 end
 
 def my_none?
