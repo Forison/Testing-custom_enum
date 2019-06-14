@@ -14,8 +14,6 @@ RSpec.describe Enumerable do
 
     end
 
-
-
     describe " #my_count(para = nil) " do 
       it "It returns the number of elements in array when no parameter is given and no block is passed " do
         array = [1,2,3,4,5]
@@ -66,6 +64,35 @@ RSpec.describe Enumerable do
          array = [1,2,3,4,5]
          expect( array.my_select{ | a | a > 3} ).to eql( [ 4,5 ] )
       end
+    end
+    
+    describe "#my_map" do
+        it " It returns each elements in an Array when one parameter is passed in the block" do
+            array = [1,2,3,4,5]
+            expect( array.my_map { |e| e} ).to eql([1,2,3,4,5])
+        end
+
+        it " It returns a modified array based  on the condition specified in the block " do
+            array = [1,2,3,4,5]
+            expect( array.my_map { |e| e * 2 } ).to eql([2,4,6,8,10])
+        end
+
+        
+        it " It returns an array  of true or false  based  on the condition specified in the block " do
+            array = [1,2,3,4,5]
+            expect( array.my_map { |e| e < 3 } ).to eql( [true,true,false,false,false] )
+        end
+
+        
+        it " It returns the key and the value of each element in an array by passing two arguments to the block " do
+            h = {
+                1 =>'kofi',
+                2 => 'ama',
+                3 => 'adwoa'
+            }
+            expect( h.my_map { |e ,f| f } ).to eql(  {1=>"kofi", 2=>"ama", 3=>"adwoa"} )
+        end
+
     end
 
 end
