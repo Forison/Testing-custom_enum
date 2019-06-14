@@ -1,10 +1,14 @@
 require './enum_methods/custom_enum.rb'
 
 RSpec.describe Enumerable do
+    
+    let(:test_array_one) { [1, 2, 3, 4, 5] }
+    let(:test_array_two) { ['a','a','a','b'] }
+
     describe "#my_each" do
       it " It returns each element in array when given a block " do
-        array=[1,2,3,4,5]
-        expect( array.my_each { |a|  a } ).to eql([1,2,3,4,5])
+        
+        expect( test_array_one.my_each { |a|  a } ).to eql([1,2,3,4,5])
       end
       
       it " It returns each key or value in hash when given a block with two parameter " do
@@ -16,18 +20,18 @@ RSpec.describe Enumerable do
 
     describe " #my_count(para = nil) " do 
       it "It returns the number of elements in array when no parameter is given and no block is passed " do
-        array = [1,2,3,4,5]
-         expect( array.my_count ).to eql( 5 )
+       
+         expect( test_array_one.my_count ).to eql( 5 )
       end
 
       it "It returns the number of the argument that exist in the array it operates upon,when no block is given " do
-        array=['a','a','a','b']
-         expect( array.my_count('a') ).to eql( 3 )
+        
+         expect( test_array_two.my_count('a') ).to eql( 3 )
       end
        
       it "It returns the number of that exist in the array based on the condition specified in the block " do
-        array=['a','a','a','b']
-         expect( array.my_count { |a| a  =='b' } ).to eql( 1 )
+        
+         expect( test_array_two.my_count { |a| a  =='b' } ).to eql( 1 )
       end
       
     end
@@ -61,26 +65,26 @@ RSpec.describe Enumerable do
     
     describe "#my_select" do
       it "It returns a new array based on the value specified in the in the block" do
-         array = [1,2,3,4,5]
-         expect( array.my_select{ | a | a > 3} ).to eql( [ 4,5 ] )
+        
+         expect( test_array_one.my_select{ | a | a > 3} ).to eql( [ 4,5 ] )
       end
     end
     
     describe "#my_map" do
         it " It returns each elements in an Array when one parameter is passed in the block" do
-            array = [1,2,3,4,5]
-            expect( array.my_map { |e| e} ).to eql([1,2,3,4,5])
+           
+            expect( test_array_one.my_map { |e| e} ).to eql([1,2,3,4,5])
         end
 
         it " It returns a modified array based  on the condition specified in the block " do
-            array = [1,2,3,4,5]
-            expect( array.my_map { |e| e * 2 } ).to eql([2,4,6,8,10])
+            
+            expect( test_array_one.my_map { |e| e * 2 } ).to eql([2,4,6,8,10])
         end
 
         
         it " It returns an array  of true or false  based  on the condition specified in the block " do
-            array = [1,2,3,4,5]
-            expect( array.my_map { |e| e < 3 } ).to eql( [true,true,false,false,false] )
+            
+            expect( test_array_one.my_map { |e| e < 3 } ).to eql( [true,true,false,false,false] )
         end
 
         
@@ -97,14 +101,14 @@ RSpec.describe Enumerable do
 
     describe "#my_inject(param = nil)" do
        it "It returns a value based on the operation specified in the block whilst no argument is given" do
-        array = [1,2,3,4,5]
-        expect( array.my_inject { |acc,value| acc + value} ).to eql(15)
+      
+        expect( test_array_one.my_inject { |acc,value| acc + value} ).to eql(15)
        end
 
        
        it "It returns a value based on the operation specified in the block whilst and the argument is given" do
-        array = [1,2,3,4,5]
-        expect( array.my_inject(1) { |acc,value| acc + value} ).to eql(16)
+        
+        expect( test_array_one.my_inject(1) { |acc,value| acc + value} ).to eql(16)
        end
        
     end
