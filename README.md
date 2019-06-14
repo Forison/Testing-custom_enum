@@ -3,7 +3,7 @@
 This project is part of a series of projects to be completed by students of [Microverse](https://www.microverse.org/ "The Global School for Remote Software Developers!").
 The motive of this project is to replicate some enumerable methods in Ruby in a test driven environment.
 
->The selected method replicated in this project are:
+>The selected methods replicated in this project are:
 - `each`
 
 - `each_with_index`
@@ -210,7 +210,8 @@ require "enum-methods"`
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE.md) file for details
-microverse.org
-Microverse | The Global School for Remote Software Developers.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE.md) file for details.
+
+
+[Microverse](https://microverse.org) | The Global School for Remote Software Developers.
 Microverse is a global school for remote software developers where students learn through remote pair programming and don't pay anything until they get a job.
