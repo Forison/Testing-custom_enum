@@ -198,6 +198,7 @@ require "enum-methods"`
 ## Contributors
 
 [Boakye Addo Forison](https://github.com/Forison)
+
 [Xarri Jorge](https://github.com/xarrijorge)
 
 ## Contributing
