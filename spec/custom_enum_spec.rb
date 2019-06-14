@@ -95,4 +95,18 @@ RSpec.describe Enumerable do
 
     end
 
+    describe "#my_inject(param = nil)" do
+       it "It returns a value based on the operation specified in the block whilst no argument is given" do
+        array = [1,2,3,4,5]
+        expect( array.my_inject { |acc,value| acc + value} ).to eql(15)
+       end
+
+       
+       it "It returns a value based on the operation specified in the block whilst and the argument is given" do
+        array = [1,2,3,4,5]
+        expect( array.my_inject(1) { |acc,value| acc + value} ).to eql(16)
+       end
+       
+    end
+
 end
