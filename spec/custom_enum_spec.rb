@@ -60,6 +60,12 @@ RSpec.describe Enumerable do
        end
 
     end
-
+    
+    describe "#my_select" do
+      it "It returns a new array based on the value specified in the in the block" do
+         array = [1,2,3,4,5]
+         expect( array.my_select{ | a | a > 3} ).to eql( [ 4,5 ] )
+      end
+    end
 
 end
