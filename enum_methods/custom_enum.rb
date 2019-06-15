@@ -9,7 +9,7 @@ module Enumerable
   end
 
   def my_each_with_index
-    0.upto( self.size - 1 ){ | a | yield self[a] , a}
+    0.upto( self.size - 1 ){ | a | yield self[a] , a }
     self
   end
 
@@ -31,21 +31,24 @@ def my_select
     end
   end
 
- def my_all?(*arg)
-  if block_given?
-       (self.size).times do |w|
-       return false if self[w]==nil || yield(self[w])==false
-      end
+def my_all?(arg = nil)
+    count = 0
+    return true  if self.size== 0 
+    if arg.nil? && self.size > 0
+     self.my_each do | a | 
+          count+=1  if a == true
+     end
+     return true if count == self.size
+    elsif !arg.nil? && self.size > 0
+       self.my_each do | a | 
+          count += 1  if a.is_a?(arg) 
+       end
+     return  true if count == self.size
+    end
 
-  else 
-    self.each do |obj| 
-    false if obj ==false || obj==nil
-      true
-    end
-    self.size==0?true:true
-    end
-   true if self.size==0
-  true
+    self.my_each do |a| return true if yield(a) end if block_given?
+
+    false
 end
 
 def my_any?(arg = nil)
@@ -66,21 +69,28 @@ def my_any?(arg = nil)
     false
 end
 
-def my_none?
-  if block_given?
-    (self.size).times do |w|
-      return true if self[w] == nil || yield(self[w]) == false
+def my_none?(arg = nil)
+    count = 0
+    count2 = 0
+    return true  if self.size== 0 
+    if arg.nil? && self.size > 0
+     self.my_each do | a | 
+          count+=1  if a == true
+          count2 +=1  if a == false 
+     end
+     return true if count == self.size
+     return true if count2 == self.size
+    elsif !arg.nil? && self.size > 0
+       self.my_each do | a | 
+          count += 1  if a.is_a?(arg) 
+       end
+     return  false if count == self.size
     end
-  else 
-    self.each do |obj| 
-      return true if obj == false || obj == nil
-      return false
-    end
-      self.size == 0? false:false
-  end
-    return false if self.size == 0
-  false
 
+      (self.size).times { | w | return true if self[w] == nil || yield(self[w]) == false } if block_given?
+
+
+    false
 end
 
 def my_count(arg = nil)

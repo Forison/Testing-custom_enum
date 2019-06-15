@@ -7,8 +7,10 @@ RSpec.describe Enumerable do
     let(:test_array_three) { ['kofi','ama', 99] }
     let(:test_array_four) { ['kofi','ama', 'adwoa'] }
     let(:test_array_five) { ['kofi','akosua', 'adwoa'] }
+    let(:test_array_six) { %w[ant bear cat] }
     let(:empty_array_test) { [ ] }
     let(:test_array_bool_1) { [false, false, true] }
+    let(:test_array_bool_2) { [false, false, false] }
     let(:hash_test){ { 1 => 'hi', 2 => 'hello', 3 => 'how'} }
 
     describe "#my_each" do
@@ -17,11 +19,18 @@ RSpec.describe Enumerable do
       end
       
       it " It returns each key or value in hash when given a block with two parameter " do
-        hash=
         expect( hash_test.my_each { |a,b|  b } ).to eql( hash_test )
       end
 
     end
+   
+    describe "#my_each_with_index" do
+       it "The first parameter returns each element in an array whilst the second parameter returns the current index of the element in the Array" do
+      
+        expect( test_array_one.my_each_with_index { |value, index|  value} ).to eql(test_array_one)
+       end
+    end
+
 
     describe " #my_count(para = nil) " do 
       it "It returns the number of elements in array when no parameter is given and no block is passed " do
@@ -37,6 +46,68 @@ RSpec.describe Enumerable do
       end
       
     end
+
+    
+    describe "#my_all?(arg = nil)" do
+       it "It return true if array is empty and neither a block or agument is passed" do
+        
+        expect( empty_array_test.my_all? ).to eql(true)
+       end
+       it "It return false if all element in the array are not of the same boolean value and neither a block or argument is given" do
+        
+        expect( test_array_bool_1.my_all? ).to eql(false)
+       end
+       
+       it "It return true if all element in the array are of the same boolean value and neither a block or argument is given" do
+        
+        expect( test_array_bool_1.my_all? ).to eql(false)
+       end
+       it "It return true if all element in the array is of the same type as the argument passed " do
+                             
+        expect( test_array_one.my_all?( Integer ) ).to eql(true)
+       end
+
+       it "It return true based on the codition specified in the block when give a block" do
+                             
+        expect( test_array_six.all? { |word| word.length >= 4 }  ).to eql(false)
+       end
+
+       
+       it "It return false if none of the above condition is not true" do
+                             
+        expect( test_array_five.my_all? { |word| word.length == 3 }  ).to eql(false)
+       end
+
+    end
+
+    
+    describe "#my_none?(arg = nil)" do
+       it "It return true if array is empty and neither a block or agument is passed" do
+        
+        expect( empty_array_test.my_none? ).to eql(true)
+       end
+       it "It return false if all element in the array are not true and neither a block or argument is given" do
+        
+        expect( test_array_bool_1.my_none? ).to eql(false)
+       end
+       it "It return true if all element in the array is of the same type as the argument passed " do
+                             
+        expect( test_array_bool_2.my_none?).to eql(true)
+       end
+
+       it "It return true based on the codition specified in the block when give a block" do
+                             
+        expect( test_array_six.my_none? { |word| word.length >= 4 }  ).to eql(true)
+       end
+
+       
+       it "It return false if none of the above condition is not true" do
+                             
+        expect( test_array_five.my_none? { |word| word.length == 3 }  ).to eql(true)
+       end
+
+    end
+    
 
     describe "#my_any?(arg = nil)" do
        it "It return false if array is empty and neither a block or agument is passed" do
@@ -110,5 +181,6 @@ RSpec.describe Enumerable do
        end
        
     end
+
 
 end
